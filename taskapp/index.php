@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="./css/toastr.min.css">
 </head>
 
 <body>
@@ -29,18 +30,7 @@
               <th>#Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-              <td>normal</td>
-              <td>
-                <a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal" data-target="#modal-users-edit"><i class="fa fa-pencil"></i>Edit</a>
-                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
-              </td>
-            </tr>
-          </tbody>
+          <tbody id="tbl-users"></tbody>
         </table>
       </div>
     </div>
@@ -74,7 +64,7 @@
                 <option value="pro-user">Pro user</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success" id="btn-add-user">Submit</button>
           </form>
         </div>
       </div>
@@ -121,6 +111,7 @@
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/jquery.dataTables.min.js"></script>
   <script src="./js/jquery.validate.min.js"></script>
+  <script src="./js/toastr.min.js"></script>
   <script src="./js/script.js"></script>
 </body>
 
