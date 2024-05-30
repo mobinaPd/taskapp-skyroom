@@ -6,7 +6,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
   <link rel="stylesheet" href="./css/toastr.min.css">
 </head>
@@ -84,6 +83,8 @@
         </div>
         <div class="modal-body">
           <form action="javascript:void(0)" id="form-edit-users">
+
+            <input type="hidden" name="edit-id" id="edit-id">
             <div class="form-group">
               <label for="edit-Name">Name:</label>
               <input type="text" required class="form-control" id="edit-name" name="edit-name" placeholder="Enter name">
@@ -109,7 +110,6 @@
   </div>
   <script src="./js/jquery.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/jquery.dataTables.min.js"></script>
   <script src="./js/jquery.validate.min.js"></script>
   <script src="./js/toastr.min.js"></script>
   <script src="./js/script.js"></script>

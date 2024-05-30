@@ -10,7 +10,22 @@ if (!empty($action)) {
             $result = $mysqli->query($sql);
             $usersData = $result->fetch_all(MYSQLI_ASSOC);
             json(1, "users data", $usersData);
-        }
+        }elseif($action == 'get_user'){
+            $userId = $_GET['user_id'];
+            if($userId > 0){
+                $sql = "SELECT * FROM users WHERE id = ?";
+                if($stmt = $mysqli->prepare($sql)){
+                    $stmt->bind_param("i",$userId);
+                    if($stmt->execute()){
+                        $result = $stmt->get_result();
+                        $userData = $result->fetch_array(MYSQLI_ASSOC);
+                        json(1, "User found!", $userData);
+                    }
+                }
+            }else{
+                json(0, "please pass user id");
+            }
+    }
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -28,6 +43,21 @@ if (!empty($action)) {
                     json(0, 'Error while saving user!');
                 }
             }
+        }elseif($action == 'update_users'){
+            $id = $_POST['edit-id'];
+            $name = $_POST['edit-name'];
+            $email = $_POST['edit-email'];
+            $designation = $_POST['edit-designation'];
+            $sql = "UPDATE users SET name = ?, email=?, designation= ? WHERE id = ?";
+            if($stmt = $mysqli->prepare($sql)){
+                $stmt->bind_param("sssi", $name, $email, $designation, $id);
+                if($stmt->execute()){
+                    json(1,"User updated successfully!");
+                }else{
+                    json(0,"Failed to update user!");
+                }
+            }
+            // print_r($_POST);
         }
     }
 }
