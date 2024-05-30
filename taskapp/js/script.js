@@ -6,6 +6,7 @@ $(document).ready(function () {
     $("#form-Edit-users").validate();
 
     loadUsersData(baseUrl);
+    // Edit user
     $(document).on("click", ".btn-edit-user", function () {
         var userId = $(this).attr("data_id");
         var formData = "action=get_user&user_id=" + userId;
@@ -29,8 +30,36 @@ $(document).ready(function () {
             }
         });
     })
-});
 
+    // delete user
+    $(document).on("click", ".btn-delete-user", function () {
+
+        if (confirm("Are you sure you want to delete the user?")) {
+            var userId = $(this).attr("data_id");
+            var formData = "action=delete_user&user_id=" + userId;
+
+            $.ajax({
+                url: baseUrl + "functions.php",
+                type: "get",
+                data: formData,
+                success: function (response) {
+                    var data = $.parseJSON(response);
+                    if (data.status == 1) {
+                        toastr.success(data.message);
+                    } else {
+                        toastr.error(data.message);
+                    }
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 3000)
+                }
+            });
+
+        }
+
+    })
+});
+// Add user
 $("#form-add-users").submit(function (e) {
 
     e.preventDefault();
@@ -53,7 +82,7 @@ $("#form-add-users").submit(function (e) {
         }
     });
 });
-
+// Edit user
 $("#form-edit-users").submit(function (e) {
 
     e.preventDefault();
@@ -67,7 +96,7 @@ $("#form-edit-users").submit(function (e) {
             var data = $.parseJSON(response);
             if (data.status == 1) {
                 toastr.success(data.message);
-            }else {
+            } else {
                 toastr.error(data.message);
             }
             setTimeout(function () {
@@ -92,7 +121,7 @@ function loadUsersData(baseUrl) {
                 usersTable += '<td>' + users.name + '</td>';
                 usersTable += '<td>' + users.email + '</td>';
                 usersTable += '<td>' + users.designation + '</td>';
-                usersTable += '<td><a href="javascript:void(0)" data_id="' + users.id + '" class="btn btn-warning btn-edit-user" data-toggle="modal" data-target="#modal-users-edit"><i class="fa fa-pencil"></i>Edit</a>  <a href="#" data_id="' + users.id + '" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a></td>';
+                usersTable += '<td><a href="javascript:void(0)" data_id="' + users.id + '" class="btn btn-warning btn-edit-user" data-toggle="modal" data-target="#modal-users-edit"><i class="fa fa-pencil"></i>Edit</a>  <a href="javascript:void(0)" data_id="' + users.id + '" class="btn btn-danger btn-delete-user"><i class="fa fa-trash"></i>Delete</a></td>';
                 usersTable += '</tr>';
             });
             $("#tbl-users").html(usersTable);

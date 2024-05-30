@@ -25,6 +25,18 @@ if (!empty($action)) {
             } else {
                 json(0, "please pass user id");
             }
+        }elseif($action == 'delete_user'){
+            $userId= $_GET['user_id'];
+            $sql = "DELETE FROM users WHERE id = ?";
+            if($stmt = $mysqli->prepare($sql)){
+                $stmt->bind_param("i",$userId);
+
+                if($stmt->execute()){
+                    json(1, "user deleted sucessfully");
+                }else{
+                    json(0, "failed to delete user");
+                }
+            }
         }
     }
 
